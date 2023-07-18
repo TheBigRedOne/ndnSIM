@@ -2,7 +2,7 @@
 #include "ns3/network-module.h"
 #include "ns3/ndnSIM-module.h"
 #include "ns3/point-to-point-module.h"
-#include "ns3/ndn-link-control-helper.h"
+#include "ns3/ndnSIM/helper/ndn-link-control-helper.hpp"
 
 using namespace ns3;
 
@@ -51,11 +51,11 @@ namespace ns3
 		ns3::Simulator::Stop(Seconds(20.0));
 
 		//In inital state, enable the link between producer and router1, diable the link between producer and router2
-		ns3::ndn::LinkControlHelper::FailLink(Seconds(0.0), producer, router2);
+		ns3::Simulator::Schedule(Seconds(0.0), &ns3::ndn::LinkControlHelper::FailLink, producer, router2);
 
 		//After 10 seconds, disable the link between producer and router1, enable the link between producer and router2
-		ns3::Simulator::Schedule(Seconds(10.0), ns3::ndn::LinkControlHelper::FailLink, producer, router1);
-		ns3::Simulator::Schedule(Seconds(10.0), ns3::ndn::LinkControlHelper::UpLink, producer, router2);
+		ns3::Simulator::Schedule(Seconds(10.0), &ns3::ndn::LinkControlHelper::FailLink, producer, router1);
+		ns3::Simulator::Schedule(Seconds(10.0), &ns3::ndn::LinkControlHelper::UpLink, producer, router2);
 
 		ns3::Simulator::Run();
 		ns3::Simulator::Destroy();
