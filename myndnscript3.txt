@@ -1,0 +1,22 @@
+# myndnscript3.txt
+
+
+# router section
+router
+Producer	NA	2	1
+Router1		NA	3	2
+Router2		NA	3	3
+Router3		NA	1	2
+Router4		NA	1	3
+Consumer	NA	2	4
+
+
+# link section
+link
+Producer	Router1		1Mbps	1	10ms	10
+Producer	Router3		1Mbps	1	10ms	10
+Router1		Router2		1Mbps	1	10ms	10
+Router1		Router3		1Mbps	1	10ms	10
+Router2		Router4		1Mbps	1	10ms	10
+Router3		Router4		1Mbps	1	10ms	10
+Consumer	Router4		1Mbps	1	10ms	10
