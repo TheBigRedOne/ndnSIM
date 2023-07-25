@@ -24,7 +24,7 @@ namespace ns3
 		ndnHelper.InstallAll();
 
 		//Choosing routing strategy
-		ns3::ndn::StrategyChoiceHelper::InstallAll("/prefix", "/localhost/nfd/stratrgy/best-route");
+		ns3::ndn::StrategyChoiceHelper::InstallAll("/prefix", "/localhost/nfd/strategy/multicast");
 
 		//Producer
 		ns3::ndn::AppHelper producerHelper("ns3::ndn::Producer");
