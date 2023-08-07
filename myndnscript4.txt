@@ -1,4 +1,4 @@
-# myndnscript3.txt
+# myndnscript4.txt
 
 
 # router section
