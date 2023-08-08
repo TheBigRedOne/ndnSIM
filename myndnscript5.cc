@@ -2,6 +2,8 @@
 #include "ns3/network-module.h"
 #include "ns3/ndnSIM-module.h"
 #include "ns3/ndnSIM/helper/ndn-link-control-helper.hpp"
+#include "ns3/point-to-point-module.h"
+#include "ns3/ndnSIM/utils/tracers/ndn-l3-rate-tracer.hpp"
 
 using namespace ns3;
 
@@ -40,6 +42,20 @@ namespace ns3
 
 		// Enable simulator
 		ns3::Simulator::Stop(Seconds(20.0));
+
+    		// Creating and configuring P2P helpers
+    		PointToPointHelper p2p;
+        NetDeviceContainer consumerRouter3Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
+        NetDeviceContainer consumerRouter6Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router6"));
+        NetDeviceContainer consumerRouter9Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router9"));
+
+    		// Enable Pcap tracing on specific links
+        p2p.EnablePcap("prefix-consumer-router3", consumerRouter3Devices.Get(0));
+        p2p.EnablePcap("prefix-consumer-router6", consumerRouter6Devices.Get(0));
+        p2p.EnablePcap("prefix-consumer-router9", consumerRouter9Devices.Get(0));
+
+    		// Enable L3RateTracer
+    		ndn::L3RateTracer::InstallAll("myndnscript5-rate-trace.txt", Seconds(1));
 
 		// In initial state, enable the link between Consumer and Router3, disable the link between Consumer and Router6 and Router9
 		ns3::Simulator::Schedule(Seconds(0.0), &ns3::ndn::LinkControlHelper::UpLink, Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
