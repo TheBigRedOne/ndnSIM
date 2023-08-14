@@ -45,14 +45,14 @@ namespace ns3
 
     		// Creating and configuring P2P helpers
     		PointToPointHelper p2p;
-        NetDeviceContainer consumerRouter3Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
-        NetDeviceContainer consumerRouter6Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router6"));
-        NetDeviceContainer consumerRouter9Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router9"));
+        	NetDeviceContainer consumerRouter3Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
+        	NetDeviceContainer consumerRouter6Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router6"));
+        	NetDeviceContainer consumerRouter9Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router9"));
 
     		// Enable Pcap tracing on specific links
-        p2p.EnablePcap("prefix-consumer-router3", consumerRouter3Devices.Get(0));
-        p2p.EnablePcap("prefix-consumer-router6", consumerRouter6Devices.Get(0));
-        p2p.EnablePcap("prefix-consumer-router9", consumerRouter9Devices.Get(0));
+       		p2p.EnablePcap("prefix-consumer-router3", consumerRouter3Devices.Get(0));
+        	p2p.EnablePcap("prefix-consumer-router6", consumerRouter6Devices.Get(0));
+        	p2p.EnablePcap("prefix-consumer-router9", consumerRouter9Devices.Get(0));
 
     		// Enable L3RateTracer
     		ndn::L3RateTracer::InstallAll("myndnscript5-rate-trace.txt", Seconds(1));
