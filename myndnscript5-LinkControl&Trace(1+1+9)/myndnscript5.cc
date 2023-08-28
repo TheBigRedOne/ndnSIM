@@ -40,19 +40,11 @@ namespace ns3
 		consumerHelper.SetPrefix("/prefix");
 		consumerHelper.Install(Names::Find<Node>("Consumer"));
 
-		// Enable simulator
-		ns3::Simulator::Stop(Seconds(20.0));
-
-    		// Creating and configuring P2P helpers
-    		PointToPointHelper p2p;
-        	NetDeviceContainer consumerRouter3Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
-        	NetDeviceContainer consumerRouter6Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router6"));
-        	NetDeviceContainer consumerRouter9Devices = p2p.Install(Names::Find<Node>("Consumer"), Names::Find<Node>("Router9"));
-
-    		// Enable Pcap tracing on specific links
-       		p2p.EnablePcap("prefix-consumer-router3", consumerRouter3Devices.Get(0));
-        	p2p.EnablePcap("prefix-consumer-router6", consumerRouter6Devices.Get(0));
-        	p2p.EnablePcap("prefix-consumer-router9", consumerRouter9Devices.Get(0));
+		// Enable Pcap tracing on specific links
+        	PointToPointHelper p2p;
+        	p2p.EnablePcap("prefix-consumer-router3", Names::Find<Node>("Consumer")->GetDevice(0));
+        	p2p.EnablePcap("prefix-consumer-router6", Names::Find<Node>("Consumer")->GetDevice(1));
+        	p2p.EnablePcap("prefix-consumer-router9", Names::Find<Node>("Consumer")->GetDevice(2));
 
     		// Enable L3RateTracer
     		ndn::L3RateTracer::InstallAll("myndnscript5-rate-trace.txt", Seconds(1));
@@ -71,6 +63,8 @@ namespace ns3
 		ns3::Simulator::Schedule(Seconds(10.0), &ns3::ndn::LinkControlHelper::UpLink, Names::Find<Node>("Consumer"), Names::Find<Node>("Router9"));
 		ns3::Simulator::Schedule(Seconds(10.0), &ns3::ndn::LinkControlHelper::FailLink, Names::Find<Node>("Consumer"), Names::Find<Node>("Router3"));
 		ns3::Simulator::Schedule(Seconds(10.0), &ns3::ndn::LinkControlHelper::FailLink, Names::Find<Node>("Consumer"), Names::Find<Node>("Router6"));
+
+		Simulator::Stop(Seconds(20));
 
 		Simulator::Run();
 		Simulator::Destroy();
